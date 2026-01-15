@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Supplements from "./pages/Supplements";
 
 const NAV = [
   { label: "How it Works", href: "#how" },
@@ -7,6 +9,7 @@ const NAV = [
   { label: "What to Expect", href: "#expect" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
+  { label: "Supplements", to: "/supplements" },
 ];
 
 const FEATURES = [
@@ -157,10 +160,7 @@ function Section({ id, eyebrow, title, subtitle, children }) {
   );
 }
 
-export default function App() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const year = useMemo(() => new Date().getFullYear(), []);
-
+function HomePage({ mobileOpen, setMobileOpen, year }) {
   return (
     <div className="bgGlow">
       <header className="topbar">
@@ -176,12 +176,19 @@ export default function App() {
           </a>
 
           <nav className="nav">
-            {NAV.map((n) => (
-              <a key={n.href} href={n.href}>
-                {n.label}
-              </a>
-            ))}
+            {NAV.map((n) =>
+              n.to ? (
+                <Link key={n.to} to={n.to}>
+                  {n.label}
+                </Link>
+              ) : (
+                <a key={n.href} href={n.href}>
+                  {n.label}
+                </a>
+              )
+            )}
           </nav>
+
 
           <div className="actions">
             <Button as="a" href="#contact" variant="primary" style={{ width: "100%" }}>
@@ -197,11 +204,21 @@ export default function App() {
         {mobileOpen && (
           <div className="mobileMenu">
             <div className="container">
-              {NAV.map((n) => (
-                <a key={n.href} href={n.href} onClick={() => setMobileOpen(false)}>
-                  {n.label}
-                </a>
-              ))}
+              {NAV.map((n) =>
+                n.to ? (
+                  <Link
+                    key={n.to}
+                    to={n.to}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {n.label}
+                  </Link>
+                ) : (
+                  <a key={n.href} href={n.href} onClick={() => setMobileOpen(false)}>
+                    {n.label}
+                  </a>
+                )
+              )}
               <div className="mobileActions">
                <Button as="a" href="#contact" variant="primary" style={{ width: "100%" }}>
               Book a Session
@@ -527,4 +544,20 @@ export default function App() {
       </main>
     </div>
   );
+}
+
+export default function App() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const year = useMemo(() => new Date().getFullYear(), []);
+
+  return (
+  <Routes>
+    <Route
+      path="/"
+      element={<HomePage mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} year={year} />}
+    />
+    <Route path="/supplements" element={<Supplements />} />
+  </Routes>
+);
+
 }

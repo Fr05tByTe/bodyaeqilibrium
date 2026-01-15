@@ -783,3 +783,8 @@ main{
   .textarea{ padding: 12px 12px; }
   .btn{ padding: 12px 14px; }
 }
+@media (max-width: 620px){
+  .actions{ width: 100%; }
+  .actions .btn{ width: auto; }
+  .input{ width: 100%; max-width: 100% !important; }
+}
