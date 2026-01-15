@@ -55,7 +55,9 @@ export default function Supplements() {
           Browse common options and enquire for availability and guidance.
         </div>
         <div className="sectionHeaderLine" />
-
+        <div className="suppMobileHome">
+          <Link className="btn btnGhost" to="/">← Home</Link>
+        </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
   <input
     className="input"

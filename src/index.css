@@ -788,3 +788,9 @@ main{
   .actions .btn{ width: auto; }
   .input{ width: 100%; max-width: 100% !important; }
 }
+/* Supplements page: ensure Home button is visible on mobile */
+.suppMobileHome { display: none; margin-top: 10px; }
+
+@media (max-width: 640px) {
+  .suppMobileHome { display: block; }
+}
